@@ -6,8 +6,8 @@
 * file that was distributed with this source code.
 */
 
-import SwiftUI
 import SDWebImageSwiftUI
+import SwiftUI
 
 // Placeholder when image load failed (with `.delayPlaceholder`)
 #if !os(watchOS)
@@ -78,7 +78,7 @@ struct DetailView: View {
                 self.lastScale = value
                 let newScale = self.scale * delta
                 self.scale = min(max(newScale, 0.5), 2)
-            }.onEnded { value in
+            }.onEnded { _ in
                 self.lastScale = 1.0
             })
         #endif
@@ -103,20 +103,20 @@ struct DetailView: View {
         HStack {
             if animated {
                 #if os(macOS) || os(iOS) || os(tvOS)
-                AnimatedImage(url: URL(string:url), options: [.progressiveLoad, .delayPlaceholder], isAnimating: $isAnimating)
+                AnimatedImage(url: URL(string: url), options: [.progressiveLoad, .delayPlaceholder], isAnimating: $isAnimating)
                 .resizable()
                 .placeholder(.wifiExclamationmark)
                 .indicator(SDWebImageProgressIndicator.default)
                 .scaledToFit()
                 #else
-                WebImage(url: URL(string:url), options: [.progressiveLoad, .delayPlaceholder], isAnimating: $isAnimating)
+                WebImage(url: URL(string: url), options: [.progressiveLoad, .delayPlaceholder], isAnimating: $isAnimating)
                 .resizable()
                 .placeholder(.wifiExclamationmark)
                 .indicator(.progress)
                 .scaledToFit()
                 #endif
             } else {
-                WebImage(url: URL(string:url), options: [.progressiveLoad, .delayPlaceholder])
+                WebImage(url: URL(string: url), options: [.progressiveLoad, .delayPlaceholder])
                 .resizable()
                 .placeholder(.wifiExclamationmark)
                 .indicator(.progress)

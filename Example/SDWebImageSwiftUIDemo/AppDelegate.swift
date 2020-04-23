@@ -6,17 +6,14 @@
  * file that was distributed with this source code.
  */
 
-import UIKit
 import SDWebImage
-import SDWebImageWebPCoder
-import SDWebImageSVGCoder
 import SDWebImagePDFCoder
+import SDWebImageSVGCoder
+import SDWebImageWebPCoder
+import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // Add WebP/SVG/PDF support
@@ -24,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
         SDImageCodersManager.shared.addCoder(SDImagePDFCoder.shared)
         // Dynamic check to support vector format for both WebImage/AnimatedImage
-        SDWebImageManager.shared.optionsProcessor = SDWebImageOptionsProcessor { url, options, context in
+        SDWebImageManager.shared.optionsProcessor = SDWebImageOptionsProcessor { _, options, context in
             var options = options
             if let _ = context?[.animatedImageClass] as? SDAnimatedImage.Type {
                 // AnimatedImage supports vector rendering, should not force decode
@@ -48,7 +45,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
 }
-

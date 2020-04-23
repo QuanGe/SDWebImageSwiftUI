@@ -25,11 +25,11 @@ public struct RotatingCircleWithGap: View {
             .trim(from: 0.15, to: 1)
             .stroke(Color.gray, style: StrokeStyle(lineWidth: self.lineWidth, lineCap: .round, lineJoin: CGLineJoin.round))
             .rotationEffect((Angle(degrees: self.isAnimating ? 360.0 : 0)))
-            .padding(EdgeInsets(top: lineWidth/2, leading: lineWidth/2, bottom: lineWidth/2, trailing: lineWidth/2))
+            .padding(EdgeInsets(top: lineWidth / 2, leading: lineWidth / 2, bottom: lineWidth / 2, trailing: lineWidth / 2))
             .animation(foreverAnimation)
             .onAppear {
                 self.isAnimating = true
-        }
+            }
     }
 }
 
@@ -47,10 +47,9 @@ private struct LoadingCircle: View {
 }
 
 public struct LoadingFlowerView: View {
-
     private let animationDuration: Double = 0.6
     private var singleCircleAnimationDuration: Double {
-        return animationDuration/3
+        return animationDuration / 3
     }
     private var foreverAnimation: Animation {
         Animation.linear(duration: animationDuration)
@@ -68,7 +67,6 @@ public struct LoadingFlowerView: View {
 
     public var body: some View {
         GeometryReader { [color, scale, singleCircleAnimationDuration, foreverAnimation] reader -> AnyView in
-
             let minLength = min(reader.size.width, reader.size.height)
             let thirdOfMinLength = minLength / 3
 
@@ -83,22 +81,22 @@ public struct LoadingFlowerView: View {
                 HStack(spacing: spacing) {
                     VStack(spacing: spacing) {
                         LoadingCircle(circleColor: color, scale: scale, circleWidth: leafDiameter)
-                            .animation(foreverAnimation.delay(singleCircleAnimationDuration*5))
+                            .animation(foreverAnimation.delay(singleCircleAnimationDuration * 5))
                         LoadingCircle(circleColor: color, scale: scale, circleWidth: leafDiameter)
-                            .animation(foreverAnimation.delay(singleCircleAnimationDuration*4))
+                            .animation(foreverAnimation.delay(singleCircleAnimationDuration * 4))
                     }
                     VStack(alignment: .center, spacing: spacing) {
                         LoadingCircle(circleColor: color, scale: scale, circleWidth: leafDiameter)
                             .animation(foreverAnimation)
                         LoadingCircle(circleColor: .clear, scale: 1, circleWidth: leafDiameter)
                         LoadingCircle(circleColor: color, scale: scale, circleWidth: leafDiameter)
-                            .animation(foreverAnimation.delay(singleCircleAnimationDuration*3))
+                            .animation(foreverAnimation.delay(singleCircleAnimationDuration * 3))
                     }
                     VStack(alignment: .center, spacing: spacing) {
                         LoadingCircle(circleColor: color, scale: scale, circleWidth: leafDiameter)
-                            .animation(foreverAnimation.delay(singleCircleAnimationDuration*1))
+                            .animation(foreverAnimation.delay(singleCircleAnimationDuration * 1))
                         LoadingCircle(circleColor: color, scale: scale, circleWidth: leafDiameter)
-                            .animation(foreverAnimation.delay(singleCircleAnimationDuration*2))
+                            .animation(foreverAnimation.delay(singleCircleAnimationDuration * 2))
                     }
                 }
             )
@@ -127,7 +125,6 @@ extension StretchyShape {
 }
 
 private struct StretchyShape: Shape {
-    
     var progress: Double
     var mode: Mode
     init(progress: Double, mode: Mode = .lagged) {
@@ -139,7 +136,6 @@ private struct StretchyShape: Shape {
     
     func path(in rect: CGRect) -> Path {
         Path { path in
-            
             addSide(.back, to: &path, rect: rect)
             addSide(.front, to: &path, rect: rect)
             
@@ -174,6 +170,7 @@ private struct StretchyShape: Shape {
                 laggedProgress = CGFloat(progress + lag)
                 startAngle = Angle(degrees: 90)
                 endAngle = Angle(degrees: -90)
+
             case .back:
                 if mode == .stretchy {
                     laggedProgress = 0
@@ -198,7 +195,6 @@ private struct StretchyShape: Shape {
 }
 
 public struct StretchLoadingView: View {
-    
     @State private var progress: Double = 0
     
     public init() { }
@@ -210,12 +206,11 @@ public struct StretchLoadingView: View {
                 withAnimation {
                     self.progress = 1
                 }
-        }
+            }
     }
 }
 
 public struct StretchProgressView: View {
-    
     @Binding public var progress: Double
     
     public var body: some View {

@@ -6,8 +6,8 @@
  * file that was distributed with this source code.
  */
 
-import SwiftUI
 import SDWebImageSwiftUI
+import SwiftUI
 
 class UserSettings: ObservableObject {
     // Some environment configuration
@@ -19,7 +19,7 @@ class UserSettings: ObservableObject {
 
 #if os(watchOS)
 // watchOS does not provide built-in indicator, use Espera's custom indicator
-struct ActivityIndicator : View {
+struct ActivityIndicator: View {
     @Binding var isAnimating: Bool
     var body: some View {
         if isAnimating {
@@ -32,7 +32,7 @@ struct ActivityIndicator : View {
     }
 }
 
-struct ProgressIndicator : View {
+struct ProgressIndicator: View {
     @Binding var isAnimating: Bool
     @Binding var progress: Double
     var body: some View {
@@ -155,8 +155,8 @@ struct ContentView: View {
                     HStack {
                         if self.animated {
                             #if os(macOS) || os(iOS) || os(tvOS)
-                            AnimatedImage(url: URL(string:url))
-                            .onViewUpdate { view, context in
+                            AnimatedImage(url: URL(string: url))
+                            .onViewUpdate { view, _ in
                             #if os(macOS)
                                 view.toolTip = url
                             #endif
@@ -170,7 +170,7 @@ struct ContentView: View {
                             .scaledToFit()
                             .frame(width: CGFloat(100), height: CGFloat(100), alignment: .center)
                             #else
-                            WebImage(url: URL(string:url), isAnimating: self.$animated)
+                            WebImage(url: URL(string: url), isAnimating: self.$animated)
                             .resizable()
                             .indicator(.activity)
                             .animation(.easeInOut(duration: 0.5))
@@ -179,7 +179,7 @@ struct ContentView: View {
                             .frame(width: CGFloat(100), height: CGFloat(100), alignment: .center)
                             #endif
                         } else {
-                            WebImage(url: URL(string:url))
+                            WebImage(url: URL(string: url))
                             .resizable()
                             /**
                              .placeholder {

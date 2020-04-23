@@ -5,6 +5,7 @@ def all_pods
   pod 'SDWebImageWebPCoder'
   pod 'SDWebImageSVGCoder'
   pod 'SDWebImagePDFCoder'
+  pod 'SwiftLint', '0.37.0'
 end
 
 target 'SDWebImageSwiftUIDemo' do
